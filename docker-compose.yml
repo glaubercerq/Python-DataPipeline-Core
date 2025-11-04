@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: etl_postgres
+    environment:
+      POSTGRES_DB: sales_datawarehouse
+      POSTGRES_USER: etl_user
+      POSTGRES_PASSWORD: etl_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - etl_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U etl_user -d sales_datawarehouse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  etl_app:
+    build: .
+    container_name: etl_pipeline
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_TYPE=postgresql
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=sales_datawarehouse
+      - POSTGRES_USER=etl_user
+      - POSTGRES_PASSWORD=etl_password
+    volumes:
+      - ./data:/app/data
+      - ./etl_scripts:/app/etl_scripts
+      - ./logs:/app/logs
+    networks:
+      - etl_network
+    command: python etl_scripts/main_pipeline.py
+
+volumes:
+  postgres_data:
+
+networks:
+  etl_network:
+    driver: bridge

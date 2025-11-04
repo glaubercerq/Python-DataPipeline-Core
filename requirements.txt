@@ -1,0 +1,17 @@
+# ETL Project - Dependencies
+# Core Data Manipulation
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Database Connection and ORM
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+
+# HTTP Requests for API Integration
+requests>=2.31.0
+
+# Data Validation (Optional but recommended)
+python-dotenv>=1.0.0
+
+# Logging and Monitoring
+colorama>=0.4.6
