@@ -15,7 +15,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
-COPY etl_scripts/ ./etl_scripts/
+COPY src/ ./src/
+COPY scripts/ ./scripts/
 COPY data/ ./data/
 
 # Create directories for logs and data
@@ -26,4 +27,4 @@ ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
 # Default command
-CMD ["python", "etl_scripts/main_pipeline.py"]
+CMD ["python", "scripts/run_pipeline.py"]
