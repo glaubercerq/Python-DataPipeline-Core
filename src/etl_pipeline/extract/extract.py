@@ -9,12 +9,10 @@ import pandas as pd
 import requests
 import os
 from datetime import datetime
-import logging
+from ..utils.logger import logger
 from typing import Optional, Dict, Any
-
-# Configuração de logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+import json
+import xml.etree.ElementTree as ET
 
 
 def validate_api_response(data: Dict[Any, Any], expected_keys: list, source: str) -> bool:
@@ -82,9 +80,87 @@ def validate_exchange_rate(rate: float, base: str, target: str) -> bool:
     return True
 
 
+def extract_file_data(file_path: str = None, file_type: str = None) -> pd.DataFrame:
+    """
+    Extrai dados de arquivos CSV, JSON ou XML.
+    Detecta automaticamente o tipo de arquivo pela extensão.
+    
+    Args:
+        file_path: Caminho do arquivo. Se None, usa vendas.csv padrão.
+        file_type: Tipo forçado do arquivo ('csv', 'json', 'xml'). Se None, detecta pela extensão.
+    
+    Returns:
+        DataFrame com os dados extraídos
+    
+    Raises:
+        FileNotFoundError: Se o arquivo não existir
+        ValueError: Se o formato não for suportado
+    """
+    if file_path is None:
+        # Caminho padrão relativo ao projeto (busca na raiz)
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+        file_path = os.path.join(base_dir, 'data', 'raw', 'vendas.csv')
+    
+    try:
+        # Detecta tipo de arquivo pela extensão se não fornecido
+        if file_type is None:
+            _, ext = os.path.splitext(file_path)
+            file_type = ext.lower().replace('.', '')
+        
+        logger.info(f"📂 Extraindo dados do arquivo {file_type.upper()}: {file_path}")
+        
+        # Extração baseada no tipo
+        if file_type == 'csv':
+            df = pd.read_csv(file_path, encoding='utf-8')
+        elif file_type == 'json':
+            df = pd.read_json(file_path)
+        elif file_type == 'xml':
+            # Tenta lxml primeiro, senão usa ElementTree manual
+            try:
+                df = pd.read_xml(file_path)
+            except Exception as ve:
+                if 'lxml' in str(ve):
+                    # Fallback para parsing manual com ElementTree
+                    logger.info("  📋 Usando parser XML alternativo (ElementTree)")
+                    tree = ET.parse(file_path)
+                    root = tree.getroot()
+                    data = []
+                    for child in root:
+                        row = {}
+                        # Extrai atributos se houver
+                        row.update(child.attrib)
+                        # Extrai elementos filhos
+                        for elem in child:
+                            row[elem.tag] = elem.text
+                        data.append(row)
+                    df = pd.DataFrame(data)
+                else:
+                    raise
+        else:
+            raise ValueError(f"Formato não suportado: {file_type}. Use 'csv', 'json' ou 'xml'.")
+        
+        # Converte tipos de dados corretamente (XML vem como string)
+        if file_type == 'xml':
+            # Converte colunas numéricas
+            if 'Quantidade' in df.columns:
+                df['Quantidade'] = pd.to_numeric(df['Quantidade'], errors='coerce')
+            if 'Preco_Local' in df.columns:
+                df['Preco_Local'] = pd.to_numeric(df['Preco_Local'], errors='coerce')
+        
+        logger.info(f"✅ {len(df)} registros extraídos do {file_type.upper()}")
+        return df
+    except FileNotFoundError:
+        logger.error(f"❌ Arquivo não encontrado: {file_path}")
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erro ao ler {file_type.upper()}: {e}")
+        raise
+
+
 def extract_csv_data(file_path: str = None) -> pd.DataFrame:
     """
     Extrai dados de vendas de um arquivo CSV local.
+    (Mantida para compatibilidade - usa extract_file_data internamente)
     
     Args:
         file_path: Caminho do arquivo CSV. Se None, usa o caminho padrão.
@@ -95,22 +171,7 @@ def extract_csv_data(file_path: str = None) -> pd.DataFrame:
     Raises:
         FileNotFoundError: Se o arquivo não existir
     """
-    if file_path is None:
-        # Caminho padrão relativo ao projeto (busca na raiz)
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-        file_path = os.path.join(base_dir, 'data', 'raw', 'vendas.csv')
-    
-    try:
-        logger.info(f"📂 Extraindo dados do CSV: {file_path}")
-        df = pd.read_csv(file_path, encoding='utf-8')
-        logger.info(f"✅ {len(df)} registros extraídos do CSV")
-        return df
-    except FileNotFoundError:
-        logger.error(f"❌ Arquivo não encontrado: {file_path}")
-        raise
-    except Exception as e:
-        logger.error(f"❌ Erro ao ler CSV: {e}")
-        raise
+    return extract_file_data(file_path, 'csv')
 
 
 def extract_exchange_rate_api(base_currency: str = 'BRL', target_currency: str = 'USD') -> dict:
@@ -431,14 +492,41 @@ def _parse_crypto_response(data: dict, parser_type: str, crypto: str, source: st
 def extract_all_sources() -> tuple:
     """
     Função principal que extrai dados de todas as fontes.
+    Agora processa múltiplos arquivos (CSV, JSON, XML) da pasta raw.
     
     Returns:
         Tupla contendo (vendas_df, exchange_rate_dict, crypto_dict)
     """
     logger.info("🚀 Iniciando extração de todas as fontes...")
     
-    # Extração de dados locais (CSV)
-    vendas_df = extract_csv_data()
+    # Diretório de arquivos raw
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    raw_dir = os.path.join(base_dir, 'data', 'raw')
+    
+    # Lista de arquivos suportados
+    supported_files = []
+    if os.path.exists(raw_dir):
+        for file in os.listdir(raw_dir):
+            if file.endswith(('.csv', '.json', '.xml')):
+                supported_files.append(os.path.join(raw_dir, file))
+    
+    # Extração de dados locais (todos os arquivos suportados)
+    all_dataframes = []
+    for file_path in supported_files:
+        try:
+            df = extract_file_data(file_path)
+            all_dataframes.append(df)
+        except Exception as e:
+            logger.warning(f"⚠️ Erro ao processar {os.path.basename(file_path)}: {e}")
+    
+    # Combina todos os DataFrames (se houver múltiplos)
+    if len(all_dataframes) > 0:
+        vendas_df = pd.concat(all_dataframes, ignore_index=True) if len(all_dataframes) > 1 else all_dataframes[0]
+        logger.info(f"📊 Total de {len(vendas_df)} registros combinados de {len(all_dataframes)} arquivo(s)")
+    else:
+        # Fallback para o CSV padrão se nenhum arquivo for encontrado
+        logger.warning("⚠️ Nenhum arquivo encontrado em raw/. Usando vendas.csv padrão...")
+        vendas_df = extract_csv_data()
     
     # Extração de dados externos (APIs)
     exchange_rate = extract_exchange_rate_api()

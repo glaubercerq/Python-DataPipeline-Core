@@ -1,0 +1,66 @@
+[
+  {
+    "Data_Venda": "2024-01-15",
+    "Produto": "Notebook Dell",
+    "Categoria": "Eletrônicos",
+    "Quantidade": 1,
+    "Preco_Local": 3500.00,
+    "Regiao": "Sul"
+  },
+  {
+    "Data_Venda": "2024-01-15",
+    "Produto": "Mouse Logitech",
+    "Categoria": "Acessórios",
+    "Quantidade": 2,
+    "Preco_Local": 75.00,
+    "Regiao": "Norte"
+  },
+  {
+    "Data_Venda": "2024-01-15",
+    "Produto": "Teclado Mecânico",
+    "Categoria": "Acessórios",
+    "Quantidade": 1,
+    "Preco_Local": 450.00,
+    "Regiao": "Sul"
+  },
+  {
+    "Data_Venda": "2024-01-16",
+    "Produto": "Monitor LG 27\"",
+    "Categoria": "Eletrônicos",
+    "Quantidade": 1,
+    "Preco_Local": 1200.00,
+    "Regiao": "Sudeste"
+  },
+  {
+    "Data_Venda": "2024-01-16",
+    "Produto": "Webcam HD",
+    "Categoria": "Acessórios",
+    "Quantidade": 3,
+    "Preco_Local": 180.00,
+    "Regiao": "Centro-Oeste"
+  },
+  {
+    "Data_Venda": "2024-01-17",
+    "Produto": "Notebook Lenovo",
+    "Categoria": "Eletrônicos",
+    "Quantidade": 1,
+    "Preco_Local": 4200.00,
+    "Regiao": "Sudeste"
+  },
+  {
+    "Data_Venda": "2024-01-17",
+    "Produto": "Fone Bluetooth",
+    "Categoria": "Acessórios",
+    "Quantidade": 2,
+    "Preco_Local": 250.00,
+    "Regiao": "Sul"
+  },
+  {
+    "Data_Venda": "2024-01-18",
+    "Produto": "SSD 1TB",
+    "Categoria": "Armazenamento",
+    "Quantidade": 1,
+    "Preco_Local": 550.00,
+    "Regiao": "Norte"
+  }
+]

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendas>
+  <venda>
+    <Data_Venda>2024-01-15</Data_Venda>
+    <Produto>Notebook Dell</Produto>
+    <Categoria>Eletrônicos</Categoria>
+    <Quantidade>1</Quantidade>
+    <Preco_Local>3500.00</Preco_Local>
+    <Regiao>Sul</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-15</Data_Venda>
+    <Produto>Mouse Logitech</Produto>
+    <Categoria>Acessórios</Categoria>
+    <Quantidade>2</Quantidade>
+    <Preco_Local>75.00</Preco_Local>
+    <Regiao>Norte</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-15</Data_Venda>
+    <Produto>Teclado Mecânico</Produto>
+    <Categoria>Acessórios</Categoria>
+    <Quantidade>1</Quantidade>
+    <Preco_Local>450.00</Preco_Local>
+    <Regiao>Sul</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-16</Data_Venda>
+    <Produto>Monitor LG 27"</Produto>
+    <Categoria>Eletrônicos</Categoria>
+    <Quantidade>1</Quantidade>
+    <Preco_Local>1200.00</Preco_Local>
+    <Regiao>Sudeste</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-16</Data_Venda>
+    <Produto>Webcam HD</Produto>
+    <Categoria>Acessórios</Categoria>
+    <Quantidade>3</Quantidade>
+    <Preco_Local>180.00</Preco_Local>
+    <Regiao>Centro-Oeste</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-17</Data_Venda>
+    <Produto>Notebook Lenovo</Produto>
+    <Categoria>Eletrônicos</Categoria>
+    <Quantidade>1</Quantidade>
+    <Preco_Local>4200.00</Preco_Local>
+    <Regiao>Sudeste</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-17</Data_Venda>
+    <Produto>Fone Bluetooth</Produto>
+    <Categoria>Acessórios</Categoria>
+    <Quantidade>2</Quantidade>
+    <Preco_Local>250.00</Preco_Local>
+    <Regiao>Sul</Regiao>
+  </venda>
+  <venda>
+    <Data_Venda>2024-01-18</Data_Venda>
+    <Produto>SSD 1TB</Produto>
+    <Categoria>Armazenamento</Categoria>
+    <Quantidade>1</Quantidade>
+    <Preco_Local>550.00</Preco_Local>
+    <Regiao>Norte</Regiao>
+  </venda>
+</vendas>

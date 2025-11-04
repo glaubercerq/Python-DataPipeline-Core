@@ -3,7 +3,7 @@ Pipeline Principal ETL - Orquestração do Processo Completo
 Este é o script principal que coordena todas as fases: Extract → Transform → Load
 """
 
-import logging
+from .utils.logger import logger
 import sys
 from datetime import datetime
 import traceback
@@ -21,17 +21,6 @@ from src.etl_pipeline.load.load import load_all_data
 
 # Garante que o diretório de logs existe
 os.makedirs(root_dir / 'logs', exist_ok=True)
-
-# Configuração de logging aprimorada
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler('logs/etl_pipeline.log', encoding='utf-8')
-    ]
-)
-logger = logging.getLogger(__name__)
 
 
 def print_banner():

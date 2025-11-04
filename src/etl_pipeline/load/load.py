@@ -6,7 +6,7 @@ Responsável por carregar os dados transformados no banco de dados (Data Warehou
 import pandas as pd
 from sqlalchemy import create_engine, text, inspect
 import os
-import logging
+from ..utils.logger import logger
 from datetime import datetime
 import sys
 from pathlib import Path
@@ -16,10 +16,6 @@ root_dir = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(root_dir))
 
 from src.etl_pipeline.utils.config import DATABASE_URI, DATABASE_TYPE, DATABASE_DIR
-
-# Configuração de logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 
 def create_database_connection(db_uri: str = None) -> create_engine:

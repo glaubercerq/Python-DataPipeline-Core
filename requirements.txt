@@ -14,7 +14,6 @@ requests>=2.31.0
 python-dotenv>=1.0.0
 
 # Logging and Monitoring
-colorama>=0.4.6
 loguru>=0.7.2
 
 # Testing
@@ -24,3 +23,8 @@ pytest-mock>=3.12.0
 
 # Data Quality and Validation
 great-expectations>=0.18.0
+
+# API REST (FastAPI)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6

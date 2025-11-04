@@ -11,7 +11,7 @@ Validações implementadas:
 
 import pandas as pd
 from typing import Dict, List, Tuple
-from loguru import logger
+from .logger import logger
 
 
 class DataValidator:

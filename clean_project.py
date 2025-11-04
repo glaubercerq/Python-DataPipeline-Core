@@ -62,20 +62,24 @@ def clean_logs():
     print_header("🗑️ Limpando Logs")
     
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    etl_dir = os.path.join(base_dir, 'etl_scripts')
+    logs_dir = os.path.join(base_dir, 'logs')
     
-    log_files = ['etl_pipeline.log']
-    
-    for log_file in log_files:
-        log_path = os.path.join(etl_dir, log_file)
-        if os.path.exists(log_path):
-            try:
-                os.remove(log_path)
-                print(f"✅ Removido: {log_file}")
-            except Exception as e:
-                print(f"❌ Erro ao remover {log_file}: {e}")
-        else:
-            print(f"ℹ️ {log_file} não existe")
+    if os.path.exists(logs_dir):
+        files = os.listdir(logs_dir)
+        removed = False
+        for file in files:
+            if file.endswith('.log'):
+                file_path = os.path.join(logs_dir, file)
+                try:
+                    os.remove(file_path)
+                    print(f"✅ Removido: {file}")
+                    removed = True
+                except Exception as e:
+                    print(f"❌ Erro ao remover {file}: {e}")
+        if not removed:
+            print("ℹ️ Nenhum arquivo de log encontrado")
+    else:
+        print("ℹ️ Diretório de logs não existe")
 
 def clean_pycache():
     """Remove diretórios __pycache__."""
@@ -97,6 +101,22 @@ def clean_pycache():
     if removed_count == 0:
         print("ℹ️ Nenhum __pycache__ encontrado")
 
+def clean_coverage():
+    """Remove diretório de cobertura de testes."""
+    print_header("🗑️ Limpando Cobertura de Testes")
+    
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    coverage_dir = os.path.join(base_dir, 'htmlcov')
+    
+    if os.path.exists(coverage_dir):
+        try:
+            shutil.rmtree(coverage_dir)
+            print("✅ Removido: htmlcov/")
+        except Exception as e:
+            print(f"❌ Erro ao remover htmlcov/: {e}")
+    else:
+        print("ℹ️ Diretório htmlcov não existe")
+
 def main():
     """Função principal."""
     print("\n")
@@ -111,6 +131,7 @@ def main():
     print("  - Dados processados")
     print("  - Arquivos de log")
     print("  - Cache Python (__pycache__)")
+    print("  - Cobertura de testes (htmlcov)")
     print("\n⚠️ Os dados originais (CSV) serão MANTIDOS")
     
     response = input("\nDeseja continuar? (s/n): ")
@@ -120,14 +141,14 @@ def main():
         clean_processed()
         clean_logs()
         clean_pycache()
+        clean_coverage()
         
         print("\n")
         print("=" * 60)
         print("✅ LIMPEZA CONCLUÍDA!")
         print("=" * 60)
         print("\nO projeto foi resetado. Você pode executar o pipeline novamente com:")
-        print("  cd etl_scripts")
-        print("  python main_pipeline.py")
+        print("  python -m src.etl_pipeline.main")
     else:
         print("\n❌ Limpeza cancelada")
 

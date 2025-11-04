@@ -7,11 +7,7 @@ Esta é a fase mais importante do pipeline ETL.
 import pandas as pd
 import numpy as np
 from datetime import datetime
-import logging
-
-# Configuração de logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from ..utils.logger import logger
 
 
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:

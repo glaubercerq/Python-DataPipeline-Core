@@ -44,7 +44,7 @@ logger.add(
     sys.stdout,
     format=console_format,
     level="INFO",
-    colorize=True,
+    colorize=False,
     backtrace=True,
     diagnose=True
 )
