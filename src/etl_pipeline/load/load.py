@@ -8,7 +8,14 @@ from sqlalchemy import create_engine, text, inspect
 import os
 import logging
 from datetime import datetime
-from config import DATABASE_URI, DATABASE_TYPE
+import sys
+from pathlib import Path
+
+# Adiciona o diretório raiz ao path
+root_dir = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(root_dir))
+
+from src.etl_pipeline.utils.config import DATABASE_URI, DATABASE_TYPE, DATABASE_DIR
 
 # Configuração de logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -31,7 +38,6 @@ def create_database_connection(db_uri: str = None) -> create_engine:
     # Cria engine SQLAlchemy
     if DATABASE_TYPE == 'sqlite':
         # Para SQLite, garante que o diretório existe
-        from config import DATABASE_DIR
         os.makedirs(DATABASE_DIR, exist_ok=True)
     
     engine = create_engine(db_uri, echo=False)

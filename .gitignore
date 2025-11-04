@@ -24,6 +24,7 @@ env/
 
 # Logs
 *.log
+logs/
 
 # Database
 *.db
@@ -48,3 +49,13 @@ data/processed/*
 # Documentation files (except README.md)
 *.md
 !README.md
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store

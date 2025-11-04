@@ -96,8 +96,8 @@ def extract_csv_data(file_path: str = None) -> pd.DataFrame:
         FileNotFoundError: Se o arquivo não existir
     """
     if file_path is None:
-        # Caminho padrão relativo ao projeto
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Caminho padrão relativo ao projeto (busca na raiz)
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
         file_path = os.path.join(base_dir, 'data', 'raw', 'vendas.csv')
     
     try:

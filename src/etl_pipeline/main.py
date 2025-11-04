@@ -7,11 +7,20 @@ import logging
 import sys
 from datetime import datetime
 import traceback
+from pathlib import Path
+import os
+
+# Adiciona o diretório raiz ao PYTHONPATH
+root_dir = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(root_dir))
 
 # Importa módulos do projeto
-from extract import extract_all_sources
-from transform import transform_data
-from load import load_all_data
+from src.etl_pipeline.extract.extract import extract_all_sources
+from src.etl_pipeline.transform.transform import transform_data
+from src.etl_pipeline.load.load import load_all_data
+
+# Garante que o diretório de logs existe
+os.makedirs(root_dir / 'logs', exist_ok=True)
 
 # Configuração de logging aprimorada
 logging.basicConfig(
@@ -19,7 +28,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stdout),
-        logging.FileHandler('etl_pipeline.log', encoding='utf-8')
+        logging.FileHandler('logs/etl_pipeline.log', encoding='utf-8')
     ]
 )
 logger = logging.getLogger(__name__)
