@@ -1,0 +1,52 @@
+Data_Venda,Produto,Categoria,Quantidade,Preco_Local,Regiao
+2024-01-15,Notebook Dell,Eletrônicos,1,3500.00,Sul
+2024-01-15,Mouse Logitech,Acessórios,2,75.00,Norte
+2024-01-15,Teclado Mecânico,Acessórios,1,450.00,Sul
+2024-01-16,Monitor LG 27",Eletrônicos,1,1200.00,Sudeste
+2024-01-16,Webcam HD,Acessórios,3,180.00,Centro-Oeste
+2024-01-16,Mousepad Gamer,Acessórios,5,35.00,Norte
+2024-01-17,Notebook Lenovo,Eletrônicos,1,4200.00,Sudeste
+2024-01-17,Fone Bluetooth,Acessórios,2,250.00,Sul
+2024-01-17,SSD 1TB,Armazenamento,1,550.00,Norte
+2024-01-18,Monitor Samsung 24",Eletrônicos,2,980.00,Nordeste
+2024-01-18,Teclado Sem Fio,Acessórios,1,220.00,Sul
+2024-01-18,Mouse Gamer,Acessórios,1,320.00,Sudeste
+2024-01-19,Notebook Acer,Eletrônicos,1,3800.00,Centro-Oeste
+2024-01-19,HD Externo 2TB,Armazenamento,2,420.00,Norte
+2024-01-19,Webcam 4K,Acessórios,1,680.00,Sul
+2024-01-20,Monitor Dell 32",Eletrônicos,1,2100.00,Sudeste
+2024-01-20,Teclado Gamer RGB,Acessórios,1,580.00,Nordeste
+2024-01-20,Cadeira Gamer,Mobiliário,1,1350.00,Sul
+2024-01-21,Notebook HP,Eletrônicos,1,3200.00,Norte
+2024-01-21,Mouse Vertical,Acessórios,2,165.00,Sudeste
+2024-01-21,SSD 512GB,Armazenamento,3,280.00,Sul
+2024-01-22,Monitor AOC 27",Eletrônicos,1,1100.00,Centro-Oeste
+2024-01-22,Fone Gamer,Acessórios,1,420.00,Nordeste
+2024-01-22,Mousepad XXL,Acessórios,2,85.00,Sul
+2024-01-23,Notebook Asus,Eletrônicos,1,4500.00,Sudeste
+2024-01-23,Teclado Compacto,Acessórios,1,380.00,Norte
+2024-01-23,HD Externo 4TB,Armazenamento,1,720.00,Sul
+2024-01-24,Monitor BenQ,Eletrônicos,1,1650.00,Nordeste
+2024-01-24,Mouse Sem Fio,Acessórios,3,95.00,Centro-Oeste
+2024-01-24,Webcam Full HD,Acessórios,2,320.00,Sudeste
+2024-01-25,Notebook MSI,Eletrônicos,1,6800.00,Sul
+2024-01-25,Teclado Mecânico RGB,Acessórios,1,720.00,Norte
+2024-01-25,SSD 2TB,Armazenamento,1,980.00,Sudeste
+2024-01-26,Monitor Philips,Eletrônicos,2,890.00,Nordeste
+2024-01-26,Mouse Bluetooth,Acessórios,1,145.00,Sul
+2024-01-26,Fone de Ouvido,Acessórios,4,120.00,Centro-Oeste
+2024-01-27,Notebook Vaio,Eletrônicos,1,5200.00,Sudeste
+2024-01-27,Teclado Slim,Acessórios,1,280.00,Norte
+2024-01-27,HD Externo 1TB,Armazenamento,2,320.00,Sul
+2024-01-28,Monitor LG 34" Ultrawide,Eletrônicos,1,2800.00,Sudeste
+2024-01-28,Mouse Gamer RGB,Acessórios,1,380.00,Nordeste
+2024-01-28,Cadeira Escritório,Mobiliário,1,890.00,Sul
+2024-01-29,Notebook Samsung,Eletrônicos,1,4100.00,Centro-Oeste
+2024-01-29,Teclado Gamer,Acessórios,1,520.00,Norte
+2024-01-29,SSD 256GB,Armazenamento,5,150.00,Sudeste
+2024-01-30,Monitor Samsung 27",Eletrônicos,1,1350.00,Sul
+2024-01-30,Mouse Ergonômico,Acessórios,2,210.00,Nordeste
+2024-01-30,Webcam Pro,Acessórios,1,850.00,Sudeste
+2024-01-31,Notebook Positivo,Eletrônicos,2,2800.00,Norte
+2024-01-31,Teclado Membrana,Acessórios,3,120.00,Sul
+2024-01-31,HD Externo 500GB,Armazenamento,1,250.00,Centro-Oeste
